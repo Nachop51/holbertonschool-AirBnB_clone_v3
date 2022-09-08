@@ -4,7 +4,6 @@ Contains the TestFileStorageDocs classes
 """
 
 from datetime import datetime
-from hashlib import new
 import inspect
 import models
 from models.engine import file_storage
