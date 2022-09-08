@@ -4,6 +4,7 @@ Contains the TestFileStorageDocs classes
 """
 
 from datetime import datetime
+from hashlib import new
 import inspect
 import models
 from models.engine import file_storage
@@ -113,3 +114,25 @@ class TestFileStorage(unittest.TestCase):
         with open("file.json", "r") as f:
             js = f.read()
         self.assertEqual(json.loads(string), json.loads(js))
+
+    def test_get_func(self):
+        ''' Test for get method '''
+        storage = FileStorage()
+        new_dict = {}
+        dummy = classes['Place']()
+        new_dict[dummy.__class__.__name__ + "." + dummy.id] = dummy
+        FileStorage._FileStorage__objects = new_dict
+        self.assertTrue(storage.get('Place', dummy.id) is not None)
+        self.assertTrue(storage.get(None, None) is None)
+        self.assertTrue(storage.get('User', None) is None)
+        self.assertTrue(storage.get(None, dummy.id) is None)
+
+    def test_count_func(self):
+        ''' Test for count method '''
+        storage = FileStorage()
+        new_dict = {}
+        dummy = classes['State']()
+        new_dict[dummy.__class__.__name__ + "." + dummy.id] = dummy
+        FileStorage._FileStorage__objects = new_dict
+        self.assertTrue(storage.count('Base Model') == 0)
+        self.assertTrue(storage.count('State') > 0)
