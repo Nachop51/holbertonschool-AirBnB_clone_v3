@@ -8,6 +8,7 @@ HOST = os.getenv('HBNB_API_HOST', '0.0.0.0')
 PORT = os.getenv('HBNB_API_PORT', '5000')
 
 app = Flask(__name__)
+app.url_map.strict_slashes = False
 app.register_blueprint(app_views)
 
 
@@ -24,4 +25,4 @@ def handle(error):
 
 
 if __name__ == '__main__':
-    app.run(host=HOST, port=PORT, threaded=True)
+    app.run(host=HOST, port=PORT, threaded=True, debug=True)
