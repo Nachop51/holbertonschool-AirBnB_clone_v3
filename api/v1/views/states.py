@@ -37,12 +37,14 @@ def state(state_id):
         elif request.method == 'PUT':
             if not request.get_json():
                 abort(400, 'Not a JSON')
-        else:
-            state = storage.get(State, state_id)
-            for key, value in request.get_json().items():
-                if key not in ['id', 'created_at', 'updated_at']:
-                    setattr(state, key, value)
-            storage.save()
-            return jsonify(state.to_dict()), 200
+            elif 'name' not in request.get_json():
+                abort(400, 'Missing name')
+            else:
+                state = storage.get(State, state_id)
+                for key, value in request.get_json().items():
+                    if key not in ['id', 'created_at', 'updated_at']:
+                        setattr(state, key, value)
+                storage.save()
+                return jsonify(state.to_dict()), 200
     else:
         abort(404)
