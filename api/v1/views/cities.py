@@ -33,6 +33,7 @@ def cities_from_state(state_id):
 
 @app_views.route('/cities/<city_id>', methods=["GET", "DELETE", "PUT"])
 def city(city_id):
+    ''' Retrieves, modifies, or deletes a particular city '''
     city = storage.get(City, city_id)
     if city is None:
         abort(404)
