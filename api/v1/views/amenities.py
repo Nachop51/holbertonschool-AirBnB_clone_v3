@@ -10,7 +10,8 @@ from models.amenity import Amenity
 def amenities():
     ''' Retrieves all amenities '''
     if request.method == "GET":
-        amenities_list = [obj.to_dict() for obj in storage.all("Amenity").values()]
+        amenities_list = [obj.to_dict() for obj
+                          in storage.all("Amenity").values()]
         return jsonify(amenities_list)
     elif request.method == "POST":
         req_json = request.get_json()
