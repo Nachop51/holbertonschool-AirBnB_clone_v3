@@ -42,9 +42,6 @@ def place_amenity(place_id, amenity_id):
             storage.save()
             return {}, 200
         elif request.method == "POST":
-            if not request.get_json():
-                abort(400, 'Not a JSON')
-            else:
-                if amenity in place.amenities:
-                    return jsonify(amenity.to_dict()), 200
-                return jsonify(amenity.to_dict()), 201
+            if amenity in place.amenities:
+                return jsonify(amenity.to_dict()), 200
+            return jsonify(amenity.to_dict()), 201
