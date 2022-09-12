@@ -27,10 +27,11 @@ class User(BaseModel, Base):
 
     def __init__(self, *args, **kwargs):
         """initializes user"""
-        if kwargs and "password" in kwargs:
+        if kwargs:
             password = kwargs.get("password")
-            md5 = hashlib.md5()
-            md5.update(password)
-            password = md5.hexdigest()
-            setattr(self, "password", password)
+            if password:
+                md5 = hashlib.md5()
+                md5.update(password)
+                password = md5.hexdigest()
+                setattr(self, "password", password)
         super().__init__(*args, **kwargs)
