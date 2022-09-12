@@ -9,8 +9,8 @@ from models.amenity import Amenity
 @app_views.route('/amenities', methods=["GET", "POST"])
 def amenities():
     ''' Retrieves all amenities '''
-    amenities_list = [obj.to_dict() for obj in storage.all("Amenity").values()]
     if request.method == "GET":
+        amenities_list = [obj.to_dict() for obj in storage.all("Amenity").values()]
         return jsonify(amenities_list)
     elif request.method == "POST":
         req_json = request.get_json()
@@ -40,7 +40,7 @@ def amenity(amenity_id):
             if not request.get_json():
                 abort(400, 'Not a JSON')
             else:
-                amenity = storage.get(amenity, amenity_id)
+                amenity = storage.get(Amenity, amenity_id)
                 for key, value in request.get_json().items():
                     if key not in ['id', 'created_at',
                                    'updated_at']:
