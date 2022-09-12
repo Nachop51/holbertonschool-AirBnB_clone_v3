@@ -44,4 +44,3 @@ def place_amenity(place_id, amenity_id):
         elif request.method == "POST":
             if amenity in place.amenities:
                 return jsonify(amenity.to_dict()), 200
-            return jsonify(amenity.to_dict()), 201
