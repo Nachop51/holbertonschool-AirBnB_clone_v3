@@ -10,10 +10,8 @@ PORT = os.getenv('HBNB_API_PORT', '5000')
 
 app = Flask(__name__)
 app.url_map.strict_slashes = False
-app.register_blueprint(app_views)
-
-
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
+app.register_blueprint(app_views)
 
 
 @app.errorhandler(404)
