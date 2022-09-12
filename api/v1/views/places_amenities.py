@@ -19,12 +19,11 @@ def place_amenities(place_id):
     if place is None:
             abort(404, 'Not found')
     else:
-        place_amenities = place.amenities
-        place_amenities = [obj.to_dict() for obj in place_amenities]
+        place_amenities = [obj.to_dict() for obj in place.amenities]
         return jsonify(place_amenities)
 
 
-@app_views.route('/api/v1/places/<place_id>/amenities/<amenity_id>',
+@app_views.route('/places/<place_id>/amenities/<amenity_id>',
                  methods=["DELETE", "POST"])
 def place_amenity(place_id, amenity_id):
     ''' Retrieves, modifies, or deletes a particular amenity '''
@@ -44,3 +43,4 @@ def place_amenity(place_id, amenity_id):
         elif request.method == "POST":
             if amenity in place.amenities:
                 return jsonify(amenity.to_dict()), 200
+            return jsonify(amenity.to_dict()), 201
